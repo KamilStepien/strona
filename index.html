@@ -3,95 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Powodzenia!</title>
+    <title>Kliknij Buźkę</title>
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
             text-align: center;
         }
-
-        .heart-container {
-            text-align: center;
-        }
-
-        .heart {
-            font-size: 100px;
-            color: red;
+        .face-button {
+            font-size: 150px; /* Zwiększony rozmiar buźki */
+            border: none;
+            background: none;
             cursor: pointer;
-            display: inline-block;
-            animation: pulse 1.5s infinite;
-            transition: transform 0.5s ease;
+            outline: none;
+            position: relative;
+            transition: transform 0.2s ease;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .face-button:active {
+            transform: scale(1.2);
         }
-
-        /* Stylowanie tekstu pojawiającego się pod sercem */
-        #message {
+        .face-button.pulse {
+            animation: pulse 0.3s ease;
+        }
+        .face-button::before {
+            content: "😊"; /* Ikona słodkiej buźki */
+            font-size: 150px; /* Dopasowany rozmiar buźki */
+        }
+        .message {
             margin-top: 20px;
             font-size: 24px;
             color: #333;
-            opacity: 0;
-            transform: translateY(20px); /* Tekst na początku jest przesunięty w dół */
-            transition: opacity 1s ease, transform 1s ease;
+            opacity: 0; /* Początkowa przezroczystość */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Płynna zmiana przezroczystości i transformacji */
+            transform: translateY(20px); /* Początkowa pozycja tekstu */
         }
-
-        /* Po kliknięciu tekst się pojawia */
-        #message.show {
-            opacity: 1;
-            transform: translateY(0); /* Przesunięcie tekstu w górę */
-        }
-
-        /* Efekt powiększenia serca po kliknięciu */
-        .heart.show {
-            transform: scale(1.5);
-        }
-
-        /* Dostosowanie do różnych rozmiarów ekranów */
-        @media (max-width: 600px) {
-            .heart {
-                font-size: 70px;
-            }
-
-            #message {
-                font-size: 18px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .heart {
-                font-size: 120px;
-            }
-
-            #message {
-                font-size: 28px;
-            }
+        .message.visible {
+            opacity: 1; /* Tekst widoczny */
+            transform: translateY(0); /* Powrót do oryginalnej pozycji */
         }
     </style>
 </head>
 <body>
 
-    <div class="heart-container">
-        <div class="heart" id="heart">❤️</div>
-        <div id="message">Dasz radę! <br> Zawsze trzymam za Ciebie kciuki! <br> 💪❤️</div>
+    <div class="container">
+        <button class="face-button" id="faceBtn"></button>
+        <div class="message" id="message">Kliknij mnie! 😊</div> <!-- Początkowy tekst pod buźką -->
     </div>
 
     <script>
-        const heart = document.getElementById('heart');
-        const message = document.getElementById('message');
+        let clickCount = 0; // Licznik kliknięć
+        const faceButton = document.getElementById('faceBtn');
+        const messageDisplay = document.getElementById('message');
+        
+        // Tablica z wiadomościami do wyświetlenia
+        const messages = [
+            "Dziś jest dzień😄: ", // Dodano nowy punkt
+            "Dzień Fioletowy 💜",
+            "Twój niezwykły uśmiech 😊",
+            "Dzień wegetarianizmu 🥗",
+            "1041. rocznica naszej niezapomnianej znajomości 😍",
+            "Urodziny Nielsa Bohra 🔬",
+            "✨ Wejściówki na piątkę! ✨ 📝",
+            "Powodzenia!!!!! 🌟"
+        ];
 
-        heart.addEventListener('click', () => {
-            heart.classList.add('show'); // Powiększenie serca
-            message.classList.add('show'); // Wyświetlenie tekstu z animacją
+        // Ustaw początkowy tekst jako widoczny
+        messageDisplay.classList.add('visible');
+
+        faceButton.addEventListener('click', () => {
+            // Dodanie klasy do animacji
+            faceButton.classList.add('pulse');
+
+            // Usunięcie klasy po zakończeniu animacji
+            setTimeout(() => {
+                faceButton.classList.remove('pulse');
+            }, 300);
+
+            // Zliczanie kliknięć i aktualizacja wiadomości
+            clickCount++;
+            if (clickCount <= messages.length) {
+                // Dodaj animację znika i wchodzi nowa wiadomość
+                messageDisplay.classList.remove('visible');
+
+                setTimeout(() => {
+                    // Ustaw nową wiadomość
+                    messageDisplay.textContent = messages[clickCount - 1];
+                    
+                    // Dodaj klasę, aby pokazać tekst z animacją
+                    messageDisplay.classList.add('visible');
+                }, 500); // Czas oczekiwania na zniknięcie starej wiadomości
+            }
         });
     </script>
 
