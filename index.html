@@ -3,104 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kliknij Buźkę</title>
+    <title>Certyfikat Jesieniary</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .container {
+            background-color: #f4e7d3;
+            font-family: 'Arial', sans-serif;
             text-align: center;
+            padding: 20px;
         }
-        .face-button {
-            font-size: 150px; /* Zwiększony rozmiar buźki */
-            border: none;
-            background: none;
+        .icon-container {
+            margin-top: 50px;
             cursor: pointer;
-            outline: none;
-            position: relative;
-            transition: transform 0.2s ease;
         }
-        .face-button:active {
-            transform: scale(1.2);
+        .certificate {
+            display: none;
+            border: 10px solid #d4a373;
+            background-color: #fffaf0;
+            margin: 20px auto;
+            padding: 20px;
+            width: 70%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
-        .face-button.pulse {
-            animation: pulse 0.3s ease;
+        h1, h2 {
+            color: #8b4513;
         }
-        .face-button::before {
-            content: "😊"; /* Ikona słodkiej buźki */
-            font-size: 150px; /* Dopasowany rozmiar buźki */
+        p {
+            font-size: 1.2em;
+            color: #6b4226;
         }
-        .message {
-            margin-top: 20px;
-            font-size: 24px;
-            color: #333;
-            opacity: 0; /* Początkowa przezroczystość */
-            transition: opacity 0.5s ease, transform 0.5s ease; /* Płynna zmiana przezroczystości i transformacji */
-            transform: translateY(20px); /* Początkowa pozycja tekstu */
+        .icon {
+            font-size: 100px;
+            color: #8b4513;
         }
-        .message.visible {
-            opacity: 1; /* Tekst widoczny */
-            transform: translateY(0); /* Powrót do oryginalnej pozycji */
+        .instruction {
+            font-size: 1.2em;
+            color: #8b4513;
+            margin-top: 10px;
         }
     </style>
+    <script>
+        function showCertificate() {
+            document.querySelector('.certificate').style.display = 'block';
+        }
+    </script>
 </head>
 <body>
-
-    <div class="container">
-        <button class="face-button" id="faceBtn"></button>
-        <div class="message" id="message">Kliknij mnie! 😊</div> <!-- Początkowy tekst pod buźką -->
+    <div class="icon-container" onclick="showCertificate()">
+        <span class="icon">🍂</span>
+        <p class="instruction">Kliknij, aby zobaczyć certyfikat</p>
     </div>
-
-    <script>
-        let clickCount = 0; // Licznik kliknięć
-        const faceButton = document.getElementById('faceBtn');
-        const messageDisplay = document.getElementById('message');
-        
-        // Tablica z wiadomościami do wyświetlenia
-        const messages = [
-            "Dziś jest dzień😄: ", // Dodano nowy punkt
-            "Dzień Fioletowy 💜",
-            "Twój niezwykły uśmiech 😊",
-            "Dzień wegetarianizmu 🥗",
-            "1041. rocznica naszej niezapomnianej znajomości 😍",
-            "Urodziny Nielsa Bohra 🔬",
-            "✨ Wejściówki na piątkę! ✨ 📝",
-            "Powodzenia!!!!! 🌟"
-        ];
-
-        // Ustaw początkowy tekst jako widoczny
-        messageDisplay.classList.add('visible');
-
-        faceButton.addEventListener('click', () => {
-            // Dodanie klasy do animacji
-            faceButton.classList.add('pulse');
-
-            // Usunięcie klasy po zakończeniu animacji
-            setTimeout(() => {
-                faceButton.classList.remove('pulse');
-            }, 300);
-
-            // Zliczanie kliknięć i aktualizacja wiadomości
-            clickCount++;
-            if (clickCount <= messages.length) {
-                // Dodaj animację znika i wchodzi nowa wiadomość
-                messageDisplay.classList.remove('visible');
-
-                setTimeout(() => {
-                    // Ustaw nową wiadomość
-                    messageDisplay.textContent = messages[clickCount - 1];
-                    
-                    // Dodaj klasę, aby pokazać tekst z animacją
-                    messageDisplay.classList.add('visible');
-                }, 500); // Czas oczekiwania na zniknięcie starej wiadomości
-            }
-        });
-    </script>
-
+    <div class="certificate">
+        <h1>Certyfikat Jesieniary</h1>
+        <h2>Przyznano dla: Magda</h2>
+        <p>Ten certyfikat potwierdza, że Magda jest prawdziwą Jesieniarą, która kocha ciepłe swetry, gorącą herbatę, 
+        długie spacery wśród opadających liści i wieczory przy świecach z książką w ręku.</p>
+        <p>Wystawiono jesienią, roku 2024</p>
+        <p><strong>🍁🍂</strong></p>
+    </div>
 </body>
 </html>
