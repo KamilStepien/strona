@@ -1,64 +1,104 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certyfikat Jesieniary</title>
+    <title>Mateusz wyjdź z Szuflady!!!!!</title>
     <style>
         body {
-            background-color: #f4e7d3;
             font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8c6c6, #ffecd2);
             text-align: center;
+            color: #4a4a4a;
+        }
+
+        header {
+            background: #007BFF;
+            color: white;
             padding: 20px;
+            font-size: 2.5em;
         }
-        .icon-container {
-            margin-top: 50px;
-            cursor: pointer;
+
+        .container {
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
-        .certificate {
-            display: none;
-            border: 10px solid #d4a373;
-            background-color: #fffaf0;
-            margin: 20px auto;
-            padding: 20px;
-            width: 70%;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+        .count {
+            font-size: 3em;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 20px;
         }
-        h1, h2 {
-            color: #8b4513;
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            font-size: 0.9em;
         }
+
         p {
             font-size: 1.2em;
-            color: #6b4226;
         }
-        .icon {
-            font-size: 100px;
-            color: #8b4513;
+
+        .date-info {
+            font-size: 1.5em;
+            color: #007BFF;
         }
-        .instruction {
-            font-size: 1.2em;
-            color: #8b4513;
-            margin-top: 10px;
+
+        .emoji {
+            font-size: 2em;
         }
     </style>
-    <script>
-        function showCertificate() {
-            document.querySelector('.certificate').style.display = 'block';
-        }
-    </script>
 </head>
+
 <body>
-    <div class="icon-container" onclick="showCertificate()">
-        <span class="icon">🍂</span>
-        <p class="instruction">Kliknij, aby zobaczyć certyfikat</p>
+    <header>
+        Mateusz wyjdź z Szuflady!!!!!
+    </header>
+
+    <div class="container">
+        <p>Od 13 stycznia 2025 roku liczba krat piwa zwiększa się o jedną każdego dnia. Czas na szukanie myszki! <span
+                class="emoji">🐭</span></p>
+
+        <p class="date-info">Dziś jest:</p>
+        <p class="count" id="currentDate"></p>
+
+        <p>Łączna liczba krat piwa dla Teamu Łużna <span class="emoji">🍻</span>:</p>
+        <p class="count" id="crateCount"></p>
     </div>
-    <div class="certificate">
-        <h1>Certyfikat Jesieniary</h1>
-        <h2>Przyznano dla: Magda</h2>
-        <p>Ten certyfikat potwierdza, że Magda jest prawdziwą Jesieniarą, która kocha ciepłe swetry, gorącą herbatę, 
-        długie spacery wśród opadających liści i wieczory przy świecach z książką w ręku.</p>
-        <p>Wystawiono jesienią, roku 2024</p>
-        <p><strong>🍁🍂</strong></p>
-    </div>
+
+    <footer>
+        &copy; 2025 Mateusz Wujdz - Licznik Piwa 🦸‍♂️
+    </footer>
+
+    <script>
+        // Funkcja obliczająca różnicę dni i liczbę krat piwa
+        function calculateBeerCrates() {
+            const startDate = new Date('2025-01-13'); // Data początkowa
+            const today = new Date(); // Dzisiejsza data
+            const timeDiff = today - startDate; // Różnica w milisekundach
+            const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Przeliczenie na dni
+
+            // Ustawienie dzisiejszej daty w formacie lokalnym
+            document.getElementById('currentDate').textContent = today.toLocaleDateString('pl-PL');
+
+            // Obliczenie liczby krat (dodając 1 na start)
+            const crateCount = dayDiff >= 0 ? dayDiff + 1 : 0;
+            document.getElementById('crateCount').textContent = crateCount;
+        }
+
+        // Wywołanie funkcji przy załadowaniu strony
+        calculateBeerCrates();
+    </script>
 </body>
+
 </html>
