@@ -1,104 +1,68 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mateusz wyjdź z Szuflady!!!!!</title>
+    <title>Miłego Dzionka!</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #f8c6c6, #ffecd2);
             text-align: center;
-            color: #4a4a4a;
+            font-family: Arial, sans-serif;
+            margin-top: 50px;
         }
-
-        header {
-            background: #007BFF;
-            color: white;
-            padding: 20px;
-            font-size: 2.5em;
+        #info {
+            font-size: 20px;
+            margin-bottom: 20px;
         }
-
-        .container {
-            padding: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .count {
-            font-size: 3em;
-            color: #28a745;
-            font-weight: bold;
+        #message {
+            display: none;
+            font-size: 24px;
             margin-top: 20px;
         }
-
-        footer {
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px;
-            font-size: 0.9em;
+        #countdown {
+            font-size: 20px;
+            margin-top: 10px;
         }
-
-        p {
-            font-size: 1.2em;
-        }
-
-        .date-info {
-            font-size: 1.5em;
-            color: #007BFF;
-        }
-
         .emoji {
-            font-size: 2em;
+            font-size: 50px;
+            cursor: pointer;
         }
     </style>
 </head>
-
 <body>
-    <header>
-        Mateusz wyjdź z Szuflady!!!!!
-    </header>
-
-    <div class="container">
-        <p>Od 13 stycznia 2025 roku liczba krat piwa zwiększa się o jedną każdego dnia. Czas na szukanie myszki! <span
-                class="emoji">🐭</span></p>
-
-        <p class="date-info">Dziś jest:</p>
-        <p class="count" id="currentDate"></p>
-
-        <p>Łączna liczba krat piwa dla Teamu Łużna <span class="emoji">🍻</span>:</p>
-        <p class="count" id="crateCount"></p>
-    </div>
-
-    <footer>
-        &copy; 2025 Mateusz Wujdz - Licznik Piwa 🦸‍♂️
-    </footer>
+    <div id="info">Kliknij mnie!</div>
+    <div class="emoji" onclick="showMessage()">😊</div>
+    <div id="message">Miłego dzionka, słodka wariatko! 💖</div>
+    <div id="countdown"></div>
 
     <script>
-        // Funkcja obliczająca różnicę dni i liczbę krat piwa
-        function calculateBeerCrates() {
-            const startDate = new Date('2025-01-13'); // Data początkowa
-            const today = new Date(); // Dzisiejsza data
-            const timeDiff = today - startDate; // Różnica w milisekundach
-            const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Przeliczenie na dni
-
-            // Ustawienie dzisiejszej daty w formacie lokalnym
-            document.getElementById('currentDate').textContent = today.toLocaleDateString('pl-PL');
-
-            // Obliczenie liczby krat (dodając 1 na start)
-            const crateCount = dayDiff >= 0 ? dayDiff + 1 : 0;
-            document.getElementById('crateCount').textContent = crateCount;
+        function showMessage() {
+            document.getElementById("message").style.display = "block";
+            document.getElementById("info").style.display = "none";
+            startCountdown();
         }
 
-        // Wywołanie funkcji przy załadowaniu strony
-        calculateBeerCrates();
+        function startCountdown() {
+            const countdownElement = document.getElementById("countdown");
+            const targetTime = new Date("2025-03-26T16:30:00").getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = targetTime - now;
+                
+                if (timeLeft > 0) {
+                    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+                    const seconds = Math.floor((timeLeft / 1000) % 60);
+                    countdownElement.innerHTML = `Do spotkania zostało: ${hours}g ${minutes}m ${seconds}s`;
+                } else {
+                    countdownElement.innerHTML = "Czas minął!";
+                }
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
     </script>
 </body>
-
 </html>
