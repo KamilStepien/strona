@@ -1,104 +1,154 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mateusz wyjdź z Szuflady!!!!!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💖 Generator randki 💖</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f8c6c6, #ffecd2);
+            background: linear-gradient(135deg, #ffd6e7, #d6f6ff, #fff3c7);
             text-align: center;
-            color: #4a4a4a;
+            color: #444;
+            overflow-x: hidden;
         }
 
         header {
-            background: #007BFF;
+            background: linear-gradient(90deg, #ff6fae, #ff9ecb);
             color: white;
-            padding: 20px;
-            font-size: 2.5em;
+            padding: 25px;
+            font-size: 2em;
+            font-weight: bold;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.9);
             padding: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-            background: #ffffff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            backdrop-filter: blur(6px);
         }
 
-        .count {
-            font-size: 3em;
-            color: #28a745;
+        .result {
+            font-size: 1.4em;
+            margin: 20px 0;
+            color: #d63384;
             font-weight: bold;
-            margin-top: 20px;
+            white-space: pre-line;
+            line-height: 1.7em;
         }
 
-        footer {
-            background-color: #2c3e50;
+        button {
+            background: linear-gradient(90deg, #ff4d8d, #ff85a2);
             color: white;
-            padding: 10px;
-            font-size: 0.9em;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(255,77,141,0.3);
         }
 
-        p {
-            font-size: 1.2em;
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255,77,141,0.4);
         }
 
-        .date-info {
-            font-size: 1.5em;
-            color: #007BFF;
+        button:active {
+            transform: scale(0.98);
         }
 
-        .emoji {
-            font-size: 2em;
+        .heart {
+            position: absolute;
+            color: #ff6fae;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
-
 <body>
-    <header>
-        Mateusz wyjdź z Szuflady!!!!!
-    </header>
 
-    <div class="container">
-        <p>Od 13 stycznia 2025 roku liczba krat piwa zwiększa się o jedną każdego dnia. Czas na szukanie myszki! <span
-                class="emoji">🐭</span></p>
+<header>
+    💖 Randeczka z Angeliką 💖
+</header>
 
-        <p class="date-info">Dziś jest:</p>
-        <p class="count" id="currentDate"></p>
+<div class="container">
+    <div class="result" id="result">Kliknij "Start" 💕</div>
+    <button onclick="nextStep()" id="btn">Start</button>
+</div>
 
-        <p>Łączna liczba krat piwa dla Teamu Łużna <span class="emoji">🍻</span>:</p>
-        <p class="count" id="crateCount"></p>
-    </div>
+<script>
+    const places = ["Dom 🏠", "Restauracja 🍽️"];
 
-    <footer>
-        &copy; 2025 Mateusz Wujdz - Licznik Piwa 🦸‍♂️
-    </footer>
+    const food = ["Pizza 🍕", "Burger 🍔", "Makaron 🍝", "Naleśniki 🥞", "Pierogi 🥟", "Kebab 🌯", "Ramen 🍜", "Lody 🍦"];
 
-    <script>
-        // Funkcja obliczająca różnicę dni i liczbę krat piwa
-        function calculateBeerCrates() {
-            const startDate = new Date('2025-01-13'); // Data początkowa
-            const today = new Date(); // Dzisiejsza data
-            const timeDiff = today - startDate; // Różnica w milisekundach
-            const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); // Przeliczenie na dni
+    const drinks = ["Cola 🥤", "Lemoniada 🍋", "Kawa ☕", "Herbata 🍵", "Sok 🧃"];
 
-            // Ustawienie dzisiejszej daty w formacie lokalnym
-            document.getElementById('currentDate').textContent = today.toLocaleDateString('pl-PL');
+    const movies = ["Komedia 😂", "Horror 😱", "Romantyczny ❤️", "Akcja 🔥", "Animacja 🎬"];
 
-            // Obliczenie liczby krat (dodając 1 na start)
-            const crateCount = dayDiff >= 0 ? dayDiff + 1 : 0;
-            document.getElementById('crateCount').textContent = crateCount;
+    const walks = ["Spacer po Parku 🌳", "Spacer po Zoo 🐒", "Rolki 🛼", "Spacer po mieście 🏙️"];
+
+    const boardGames = ["Uno 🎴", "Szachy ♟️", "Monopoly 💰", "Rayman Origins 🧡", "VR 🥽"];
+
+    let step = 0;
+    let plan = {};
+
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function nextStep() {
+        const result = document.getElementById("result");
+        const btn = document.getElementById("btn");
+
+        if (step === 0) {
+            plan.place = pick(places);
+            result.textContent = "📍 Miejsce: " + plan.place + "\n👉 Dalej: jedzenie 💕";
+            btn.textContent = "Losuj jedzenie";
+            step = 1;
+
+        } else if (step === 1) {
+            plan.food = pick(food);
+            result.textContent = `📍 Miejsce: ${plan.place}\n🍽 Jedzenie: ${plan.food}\n👉 Dalej: napój 💕`;
+            btn.textContent = "Losuj napój";
+            step = 2;
+
+        } else if (step === 2) {
+            plan.drink = pick(drinks);
+            result.textContent = `📍 Miejsce: ${plan.place}\n🍽 Jedzenie: ${plan.food}\n🥤 Napój: ${plan.drink}\n👉 Dalej: wieczór 💕`;
+            btn.textContent = "Losuj wieczór";
+            step = 3;
+
+        } else if (step === 3) {
+            if (plan.place === "Dom 🏠") {
+                const homeChoice = Math.random() < 0.5 ? "Film 🎬: " + pick(movies) : "Gry 🎲: " + pick(boardGames);
+                plan.evening = homeChoice;
+            } else {
+                plan.evening = "Aktywność 🚶: Spacer i rozmowy 💕";
+            }
+
+            result.textContent = `📍 Miejsce: ${plan.place}\n🍽 Jedzenie: ${plan.food}\n🥤 Napój: ${plan.drink}\n🎉 Wieczór: ${plan.evening}\n💖 Gotowe!`;
+            btn.textContent = "Zacznij od nowa 💕";
+            step = 0;
+            plan = {};
         }
+    }
+</script>
 
-        // Wywołanie funkcji przy załadowaniu strony
-        calculateBeerCrates();
-    </script>
 </body>
-
 </html>
